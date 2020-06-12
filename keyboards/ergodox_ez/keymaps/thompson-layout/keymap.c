@@ -61,9 +61,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [2] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_GRAVE,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_LCBR,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_RCBR,        KC_LPRN,        KC_AMPR,        KC_RPRN,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_BSLASH,      KC_SLASH,       KC_UNDS,        KC_AT,          KC_LBRACKET,                                                                    KC_RBRACKET,    KC_QUES,        KC_EXLM,        KC_DQUO,        KC_QUOTE,       KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TILD,        KC_PIPE,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, LALT(KC_MINUS), KC_SCOLON,      KC_COLN,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_GRAVE,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_LBRACKET,    KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_RBRACKET,    KC_TRANSPARENT, KC_AMPR,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_BSLASH,      KC_SLASH,       KC_UNDS,        KC_AT,          KC_LPRN,                                                                        KC_RPRN,        KC_QUOTE,       KC_QUES,        KC_EXLM,        KC_DQUO,        KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TILD,        KC_PIPE,        KC_TRANSPARENT, KC_TRANSPARENT, KC_LCBR,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_RCBR,        LALT(KC_MINUS), KC_SCOLON,      KC_COLN,        KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT,
@@ -143,13 +143,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_F) SS_DELAY(100) SS_TAP(X_B) SS_DELAY(100) SS_TAP(X_W));
+      SEND_STRING(SS_TAP(X_F) SS_DELAY(1) SS_TAP(X_B) SS_DELAY(1) SS_TAP(X_W));
 
     }
     break;
     case ST_MACRO_1:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_I) SS_DELAY(100) SS_TAP(X_R) SS_DELAY(100) SS_TAP(X_F));
+      SEND_STRING(SS_TAP(X_I) SS_DELAY(1) SS_TAP(X_R) SS_DELAY(1) SS_TAP(X_F));
 
     }
     break;
