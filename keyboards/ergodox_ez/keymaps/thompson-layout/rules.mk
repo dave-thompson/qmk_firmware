@@ -10,5 +10,3 @@ RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 CONSOLE_ENABLE = yes
-VPATH  +=  keyboards/gboards/
-COMBO_ENABLE = yes

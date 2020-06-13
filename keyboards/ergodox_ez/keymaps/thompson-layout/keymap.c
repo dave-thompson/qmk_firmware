@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "g/keymap_combo.h"
 #include "version.h"
 #include "keymap_german.h"
 #include "keymap_nordic.h"
@@ -18,7 +17,6 @@
 #include "keymap_norwegian.h"
 #include "keymap_portuguese.h"
 #include <print.h>
-
 
 #define KC_MAC_UNDO LGUI(KC_Z)
 #define KC_MAC_CUT LGUI(KC_X)
