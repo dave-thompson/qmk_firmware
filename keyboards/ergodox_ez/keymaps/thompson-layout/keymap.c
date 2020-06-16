@@ -16,7 +16,6 @@
 #include "keymap_danish.h"
 #include "keymap_norwegian.h"
 #include "keymap_portuguese.h"
-#include <print.h>
 
 #define KC_MAC_UNDO LGUI(KC_Z)
 #define KC_MAC_CUT LGUI(KC_X)
@@ -39,7 +38,9 @@ enum custom_keycodes {
   ST_MACRO_1,
 };
 
+//////////////////
 // Tap Dance Stuff
+//////////////////
 
 typedef struct {
   bool is_press_action;
@@ -82,26 +83,6 @@ static tap shiftorsymboltap_state = {
   .state = 0
 };
 
-/*
-void shiftorsymbol_finished (qk_tap_dance_state_t *state, void *user_data) {
-  shiftorsymboltap_state.state = cur_dance(state);
-  switch (shiftorsymboltap_state.state) {
-    case SINGLE_TAP: set_oneshot_layer(2, ONESHOT_START); break;
-    case SINGLE_HOLD: register_code(KC_LSFT); break;
-    case DOUBLE_TAP: register_code(KC_CAPS); break;
-  }
-}
-
-void shiftorsymbol_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (shiftorsymboltap_state.state) {
-    case SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED); break;
-    case SINGLE_HOLD: unregister_code(KC_LSFT); break;
-    case DOUBLE_TAP: unregister_code(KC_CAPS); break;
-  }
-  shiftorsymboltap_state.state = 0;
-}
-*/
-
 void shiftorsymbol_finished (qk_tap_dance_state_t *state, void *user_data) {
   shiftorsymboltap_state.state = cur_dance(state);
   switch (shiftorsymboltap_state.state) {
@@ -120,30 +101,6 @@ void shiftorsymbol_reset (qk_tap_dance_state_t *state, void *user_data) {
   shiftorsymboltap_state.state = 0;
 }
 
-/*
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-
-  switch (keycode) {
-    case KC_TRNS:
-    case KC_NO:
-      // Always cancel one-shot layer when another key gets pressed
-      if (record->event.pressed && is_oneshot_layer_active())
-      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-      return true;
-    case RESET:
-      // Don't allow reset from oneshot layer state
-      if (record->event.pressed && is_oneshot_layer_active()){
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-        return false;
-      }	
-      return true;
-    default:
-      return true;
-  }
-  return true;
-}
-*/
-
 // --Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Q, twice for AT
@@ -151,6 +108,44 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [SHIFT_OR_SYMBOL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,shiftorsymbol_finished, shiftorsymbol_reset)
 };
 	
+//////////////////
+// Combo Stuff
+//////////////////
+
+// When adding new combos, you must update COMBO_COUNT in config.h !!
+
+enum combo_events {
+	IM_IM,
+	IV_IVE
+};
+
+const uint16_t PROGMEM im_combo[] = {KC_I, KC_M, COMBO_END};
+const uint16_t PROGMEM iv_combo[] = {KC_I, KC_V, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [IM_IM] = COMBO_ACTION(im_combo),
+  [IV_IVE] = COMBO_ACTION(iv_combo),
+};
+
+void process_combo_event(uint8_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case IM_IM:
+      if (pressed) {
+        SEND_STRING("I'm ");
+      }
+      break;
+    case IV_IVE:
+      if (pressed) {
+        SEND_STRING("I've ");
+      }
+      break;
+  }
+}
+
+
+//////////////////
+// Keymap Stuff
+//////////////////
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
