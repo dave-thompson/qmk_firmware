@@ -57,8 +57,7 @@ enum {
 
 // --Tap Dance Keycodes
 enum {
-  Q_OR_AT = 0,
-  SHIFT_OR_SYMBOL
+  SHIFT_OR_SYMBOL = 0
 };
 
 int cur_dance (qk_tap_dance_state_t *state);
@@ -86,25 +85,27 @@ static tap shiftorsymboltap_state = {
 void shiftorsymbol_finished (qk_tap_dance_state_t *state, void *user_data) {
   shiftorsymboltap_state.state = cur_dance(state);
   switch (shiftorsymboltap_state.state) {
-    case SINGLE_TAP: set_oneshot_layer(2, ONESHOT_START); break;
-    case SINGLE_HOLD: register_code(KC_LSFT); break;
-    case DOUBLE_TAP: register_code(KC_CAPS); break;
+	// shift
+    case SINGLE_TAP: set_oneshot_layer(1, ONESHOT_START); break;
+    case SINGLE_HOLD: set_oneshot_layer(1, ONESHOT_START); break;
+	// symbols
+    case DOUBLE_TAP: set_oneshot_layer(4, ONESHOT_START); break;
+	case DOUBLE_HOLD: set_oneshot_layer(4, ONESHOT_START); break;
   }
 }
 
 void shiftorsymbol_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (shiftorsymboltap_state.state) {
     case SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
-    case SINGLE_HOLD: unregister_code(KC_LSFT); break;
-    case DOUBLE_TAP: unregister_code(KC_CAPS); break;
+    case SINGLE_HOLD: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+    case DOUBLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+	case DOUBLE_HOLD: clear_oneshot_layer_state(ONESHOT_PRESSED); break;
   }
   shiftorsymboltap_state.state = 0;
 }
 
 // --Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for Q, twice for AT
-  [Q_OR_AT] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_AT),
   [SHIFT_OR_SYMBOL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,shiftorsymbol_finished, shiftorsymbol_reset)
 };
 	
