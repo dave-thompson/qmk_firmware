@@ -108,40 +108,6 @@ void shiftorsymbol_reset (qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [SHIFT_OR_SYMBOL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,shiftorsymbol_finished, shiftorsymbol_reset)
 };
-	
-//////////////////
-// Combo Stuff
-//////////////////
-
-// When adding new combos, you must update COMBO_COUNT in config.h !!
-
-enum combo_events {
-	IM_IM,
-	IV_IVE
-};
-
-const uint16_t PROGMEM im_combo[] = {KC_I, KC_M, COMBO_END};
-const uint16_t PROGMEM iv_combo[] = {KC_I, KC_V, COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-  [IM_IM] = COMBO_ACTION(im_combo),
-  [IV_IVE] = COMBO_ACTION(iv_combo),
-};
-
-void process_combo_event(uint8_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case IM_IM:
-      if (pressed) {
-        SEND_STRING("I'm ");
-      }
-      break;
-    case IV_IVE:
-      if (pressed) {
-        SEND_STRING("I've ");
-      }
-      break;
-  }
-}
 
 
 //////////////////
